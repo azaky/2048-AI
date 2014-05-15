@@ -7,6 +7,8 @@
   <link href="style/main.css" rel="stylesheet" type="text/css">
   <link rel="shortcut icon" href="favicon.ico">
   <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
@@ -37,9 +39,9 @@
       <a class="restart-button">New Game</a>
     </div>
 
-    <div class="app-notice">
-      <span class="notice-close-button">x</span>
-      <p><strong class="important">New:</strong> Get the new 2048 app for <a href="https://itunes.apple.com/us/app/2048-by-gabriele-cirulli/id868076805" target="_blank">iOS</a> and <a href="https://play.google.com/store/apps/details?id=com.gabrielecirulli.app2048" target="_blank">Android!</a></p>
+
+    <div class="ai-block">
+      <a class="ai-solver-button">Auto-Run</a>
     </div>
 
     <div class="game-container">
@@ -99,6 +101,25 @@
       </div>
     </div>
 
+    <table class="statistics">
+      <tr>
+        <th>Tries</th>
+        <th>Highest Tile</th>
+        <th>Score</th>
+      </tr>
+    </table>
+
+    <style>
+table {
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+table, th, td {
+  border: 1px solid;
+  padding: 10px;
+}
+    </style>
+
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>
     </p>
@@ -141,6 +162,7 @@
   <script src="js/local_storage_manager.js"></script>
   <script src="js/game_manager.js"></script>
   <script src="js/application.js"></script>
+  <script src="js/ai.js"></script>
 
   <script>
     (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
