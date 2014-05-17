@@ -31,10 +31,6 @@
       <a class="restart-button">New Game</a>
     </div>
 
-    <div class="ai-block">
-      <a class="ai-solver-button">Auto-Run</a>
-    </div>
-
     <div class="game-container">
       <div class="game-message">
         <p></p>
@@ -76,7 +72,26 @@
       </div>
     </div>
 
-    <table class="statistics">
+    <div class="ai-block">
+      <div style="width: 350px; float: left" class="ai-options">
+        <div style="margin: 5px; padding: 5px">
+          <label>Select Algorithm </label>
+          <select style="float:right" class="algorithm">
+            <option value="minimax">Minimax Algorithm</option>
+            <option value="expectimax">Expectimax Algorithm</option>
+          </select>
+        </div>
+        <div style="margin: 5px; padding: 5px">
+          <label>Depth Limit </label>
+          <input class="depth-limit" style="float:right" type="number" min="1" max="999" value="3">
+        </div>
+      </div>
+      <div style="float:right; padding-top: 20px">
+        <a class="ai-solver-button">Auto-Run</a>
+      </div>
+    </div>
+
+    <!--table class="statistics">
       <tr>
         <th>Tries</th>
         <th>Highest Tile</th>
@@ -93,7 +108,7 @@ table, th, td {
   border: 1px solid;
   padding: 10px;
 }
-    </style>
+    </style-->
 
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> to move the tiles. When two tiles with the same number touch, they <strong>merge into one!</strong>

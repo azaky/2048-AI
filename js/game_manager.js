@@ -23,6 +23,11 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
     else {
       this.running = true;
       autoRunButton.innerHTML = "Stop";
+      // Select algorithm
+      var algoOption = document.querySelector(".algorithm");
+      this.ai.algorithm = algoOption.value;
+      var depthLimit = document.querySelector(".depth-limit");
+      this.ai.depthlimit = parseInt(depthLimit.value);
       this.autoRun();
     }
   }.bind(this));
@@ -126,16 +131,16 @@ GameManager.prototype.actuate = function () {
 
     if (this.running) {
       // Add statistics
-      var table = document.querySelector(".statistics");
-      var length = table.rows.length;
-      var newRow = table.insertRow(length);
-      newRow.insertCell(0).innerHTML = length;
-      newRow.insertCell(1).innerHTML = this.grid.largest();
-      newRow.insertCell(2).innerHTML = this.score;
+      //var table = document.querySelector(".statistics");
+      //var length = table.rows.length;
+      //var newRow = table.insertRow(length);
+      //newRow.insertCell(0).innerHTML = length;
+      //newRow.insertCell(1).innerHTML = this.grid.largest();
+      //newRow.insertCell(2).innerHTML = this.score;
       //retry game automatically
-      this.restart();
-      this.running = true;
-      this.autoRun();
+      //this.restart();
+      //this.running = true;
+      //this.autoRun();
     }
   } else {
     this.storageManager.setGameState(this.serialize());

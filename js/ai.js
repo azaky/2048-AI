@@ -1,12 +1,24 @@
 function AI(grid) {
   this.grid = grid;
+  // Default search algorithm
+  this.algorithm = "expectimax";
+  this.depthlimit = 3;
 }
 
 AI.prototype.getBestMove = function() {
   //var move = this.getMoveMaxScore();
   //var best = this.getMoveExpectimax();
-  var best = this.getMoveMinimax();
-  var move = best.move;
+  var move = -1;
+  switch (this.algorithm) {
+    case ("minimax") :
+      var best = this.getMoveMinimax();
+      move = best.move;
+      break;
+    case ("expectimax") :
+      var best = this.getMoveExpectimax();
+      move = best.move;
+      break;
+  }
   //var move = this.getMoveYanfaAlgorithm();
   //alert("move = " + move);
   document.title = "score: " + best.score;
@@ -113,7 +125,7 @@ AI.prototype.getHeuristic = function(grid) {
       score += 4096;
     }
     else {
-      score += cell.value;
+      //score += cell.value;
 
       //gives large values in the middle penalty
       var distance = Math.min(Math.min(x, self.size - 1 - x), Math.min(y, self.size - 1 - y));
@@ -127,11 +139,13 @@ AI.prototype.getHeuristic = function(grid) {
           score += 4096;
         }
         else if (xBorder || yBorder) {
-          score += 2048;
+          //score += 2048;
         }
       }
+
     }
   });
+
   //penalty for non-smooth grid
   for (var x = 1; x < grid.size; x++) {
     for (var y = 1; y < grid.size; y++) {
@@ -144,6 +158,7 @@ AI.prototype.getHeuristic = function(grid) {
       }
     }
   }
+  
 
   return score;
 };
@@ -165,7 +180,7 @@ AI.prototype.getHashCode = function(grid) {
 AI.prototype.getMoveExpectimax = function() {
   // clear memoization
   this.memo = [];
-  return this.getMoveExpectimaxDFS(this.grid, 2);
+  return this.getMoveExpectimaxDFS(this.grid, this.depthlimit);
 };
 
 AI.prototype.findMemoization = function(grid) {
@@ -242,7 +257,17 @@ AI.prototype.getMoveExpectimaxDFS = function(grid, depth) {
 
 // Minimax Algorithm
 AI.prototype.getMoveMinimax = function() {
-  return this.getMoveMinimaxDFS(this.grid, -999999, 999999, {player: true}, 5);
+  var bestMove = {score: -999999, move: -1};
+  // Iterative deepening
+  var mindepth = Math.floor(this.depthlimit/2);
+  var maxdepth = this.depthlimit;
+  for (var depth = mindepth; depth <= maxdepth; depth++) {
+    var temp = this.getMoveMinimaxDFS(this.grid, -999999, 999999, {player: true}, depth);
+    if (temp.score > bestMove.score) {
+      bestMove = temp;
+    }
+  }
+  return bestMove;
 };
 
 // Minimax with Alpha-Beta pruning
